@@ -42,7 +42,6 @@ volumes:
   vol-pgadmin_data:
     name: vol-pgadmin_data
 ```
-<br>
 **Solution**<br>
 Containers run within the same network. So pgadmin will use host of the service with postgres (`db`) and port, which is used within container with postgres (`5432`)<br>
 **Answer**<br>
