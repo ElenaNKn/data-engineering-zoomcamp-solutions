@@ -57,6 +57,7 @@ Steps:
 - create iterator for the parquet file with trips data and upload data to the new table in postgres database. Notebook with the code: ["notebook.ipynb"](https://github.com/ElenaNKn/data-engineering-zoomcamp-solutions/blob/master/homework_module1/notebook.ipynb)
 - in terminal with connection to database execute command:<br>
 `SELECT COUNT(*) FROM green_taxi_data WHERE lpep_pickup_datetime >= '2025-11-01' AND lpep_pickup_datetime < '2025-12-01' AND trip_distance <=1;`<br>
+
 Result:<br>
 <img src="images/task3_1.jpg" width="800" height="220" alt="short trips"/><br>
 **Answer**<br>
