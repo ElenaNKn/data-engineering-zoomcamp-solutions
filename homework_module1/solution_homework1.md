@@ -46,3 +46,19 @@ volumes:
 Containers run within the same network. So pgadmin will use host of the service with postgres (`db`) and port, which is used within container with postgres (`5432`)<br>
 **Answer**<br>
 db:5432<br>
+
+## Task 3
+**Question**<br>
+For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2025-12-01', exclusive of the upper bound), how many trips had a `trip_distance` of less than or equal to 1 mile?<br>
+**Solution**<br>
+Steps:
+- initialize virtual environment with uv;
+- start docker container with postgres and connect to postgres database, ["learning materials"](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/docker-sql/04-postgres-docker.md)
+- create iterator for the parquet file with trips data and upload data to the new table in postgres database. Notebook with the code: ["notebook.ipynb"](https://github.com/ElenaNKn/data-engineering-zoomcamp-solutions/blob/master/homework_module1/notebook.ipynb)
+- in terminal with connection to database execute command:
+`SELECT COUNT(*) FROM green_taxi_data WHERE lpep_pickup_datetime >= '2025-11-01' AND lpep_pickup_datetime < '2025-12-01' AND trip_distance <=1;`<br>
+Result:<br>
+<img src="images/task3_1.jpg" width="800" height="220" alt="short trips"/><br>
+**Answer**<br>
+8007<br>
+
