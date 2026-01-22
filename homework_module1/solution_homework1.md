@@ -55,10 +55,20 @@ Steps:
 - initialize virtual environment with uv;
 - start docker container with postgres and connect to postgres database, ["learning materials"](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/docker-sql/04-postgres-docker.md)
 - create iterator for the parquet file with trips data and upload data to the new table in postgres database. Notebook with the code: ["notebook.ipynb"](https://github.com/ElenaNKn/data-engineering-zoomcamp-solutions/blob/master/homework_module1/notebook.ipynb)
-- in terminal with connection to database execute command:
+- in terminal with connection to database execute command:<br>
 `SELECT COUNT(*) FROM green_taxi_data WHERE lpep_pickup_datetime >= '2025-11-01' AND lpep_pickup_datetime < '2025-12-01' AND trip_distance <=1;`<br>
 Result:<br>
 <img src="images/task3_1.jpg" width="800" height="220" alt="short trips"/><br>
 **Answer**<br>
 8007<br>
 
+## Task 4
+**Question**<br>
+Which was the pick up day with the longest trip distance? Only consider trips with `trip_distance` less than 100 miles (to exclude data errors).<br>
+**Solution**<br>
+Steps are the same as for task 3. Final answer can be obtained with the command:<br>
+`SELECT DATE_TRUNC('day', lpep_pickup_datetime) FROM green_taxi_data WHERE trip_distance = (SELECT MAX(trip_distance) FROM green_taxi_data WHERE (trip_distance) < 100);`<br>
+Result:<br>
+<img src="images/task4_1.jpg" width="800" height="220" alt="day of the longest trip"/><br>
+**Answer**<br>
+2025-11-14<br>
