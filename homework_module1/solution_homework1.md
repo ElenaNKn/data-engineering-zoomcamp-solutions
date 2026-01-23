@@ -73,3 +73,33 @@ Result:<br>
 <img src="images/task4_1.jpg" width="800" height="220" alt="day of the longest trip"/><br>
 **Answer**<br>
 2025-11-14<br>
+
+## Task 5
+**Question**<br>
+Which was the pickup zone with the largest `total_amount` (sum of all trips) on November 18th, 2025?<br>
+**Solution**<br>
+Steps:
+- create docker network and start containers with postgres and pgadmin ["learning materials"](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/01-docker-terraform/docker-sql/07-pgadmin.md)
+- open web-version of pgadmin and create connection to tha database
+- in pgadmin execute query:<br>
+```sql
+SELECT zone_name
+	,ROUND(a.total_amount::DECIMAL, 2) AS total_amount
+FROM
+(
+	SELECT "PULocationID" AS pu_id,
+		SUM(a.total_amount) AS total_amount
+	FROM public.green_taxi_data AS a
+	WHERE DATE_TRUNC('day', lpep_pickup_datetime) = '2025-11-18'
+	GROUP BY "PULocationID"
+) AS a
+INNER JOIN (SELECT "LocationID" AS l_id, "Zone" AS zone_name FROM taxi_zone_lookup) AS b
+ON a.pu_id = b.l_id
+ORDER BY total_amount DESC
+LIMIT 1
+```
+
+Result:<br>
+<img src="images/task5_1.jpg" width="800" height="400" alt="pgadmin"/><br>
+**Answer**<br>
+East Harlem North<br>
