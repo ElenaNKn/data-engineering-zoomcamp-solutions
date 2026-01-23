@@ -103,3 +103,34 @@ Result:<br>
 <img src="images/task5_1.jpg" width="800" height="400" alt="pgadmin"/><br>
 **Answer**<br>
 East Harlem North<br>
+
+## Task 6
+**Question**<br>
+For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?<br>
+**Solution**<br>
+Steps are similar to the task 5. In pgadmin execute query:<br>
+```sql
+SELECT zone_name
+	,tip_amount
+FROM
+(
+	SELECT "DOLocationID" AS do_id,
+		MAX(a.tip_amount) AS tip_amount
+	FROM public.green_taxi_data AS a
+	WHERE DATE_TRUNC('day', lpep_pickup_datetime) >= '2025-11-01'
+		AND DATE_TRUNC('day', lpep_pickup_datetime) < '2025-12-01'
+		AND "PULocationID" = (SELECT "LocationID" 
+							FROM public.taxi_zone_lookup 
+							WHERE "Zone" = 'East Harlem North')
+	GROUP BY "DOLocationID"
+	ORDER BY MAX(a.tip_amount) DESC
+	LIMIT 1
+) AS a
+INNER JOIN (SELECT "LocationID" AS l_id, "Zone" AS zone_name FROM taxi_zone_lookup) AS b
+ON a.do_id = b.l_id
+```
+
+Result:<br>
+<img src="images/task6_1.jpg" width="800" height="400" alt="pgadmin"/><br>
+**Answer**<br>
+Yorkville West<br>
