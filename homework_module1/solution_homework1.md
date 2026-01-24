@@ -134,3 +134,19 @@ Result:<br>
 <img src="images/task6_1.jpg" width="800" height="400" alt="pgadmin"/><br>
 **Answer**<br>
 Yorkville West<br>
+
+## Task 6
+**Question**<br>
+Which of the following sequences describes the Terraform workflow for: 
+1. Downloading plugins and setting up backend, 
+2. Generating and executing changes, 
+3. Removing all resources?<br>
+
+**Solution**<br>
+Steps 1:
+1. `terraform init` downloads plugins and sets up backend
+2. `terraform apply -auto-approve` implicitly runs a plan and then applies changes, and the `-auto-approve` flag allow to avoid manual approval
+3. `terraform destroy` removes all resources<br>
+
+**Answer**<br>
+terraform init, terraform apply -auto-approve, terraform destroy<br>
